@@ -4,8 +4,9 @@
 }
 
 
-.card-bg-purple {
-    background: linear-gradient(180deg, #032832 0%, #0d3e3f 100%) ;
+.card-bg {
+    background: linear-gradient(180deg, #032832 40%, #0d3e3f 100%) ;
+
 }
 
 .card-bg-second {
@@ -13,11 +14,13 @@
 }
 
 body {
-    background-color: #e8e6d7;
+    /* background-color: #e8e6d7; */
+    background-color: white;
+    
 }
 
 #pipsection {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scrollbar-color: #032832 #032832;
+  scrollbar-width: thin;
+  -ms-overflow-style: thin;
+  scrollbar-color: #5a5a5a #606060;
 }

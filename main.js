@@ -16,7 +16,7 @@ const RenderPips = async () => {
     
         // Create user image
         const img = document.createElement('img');
-        img.className = 'w-10 h-10 rounded-full';
+        img.className = 'w-10 h-10 rounded-full bg-blue-900';
         img.src = pip.userName
     
         // Create pip text

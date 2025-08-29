@@ -27,8 +27,20 @@ document.getElementById('pipform').addEventListener('submit', async (event) => {
     // Prevents reloading the page
     event.preventDefault();
 
-    const username = event.target[0].value;
-    const pipText = event.target[1].value;
+    let username = await event.target[0].value;
+    let pipText = await event.target[1].value;
+
+    // Check if username is either Felix or Riley.
+    // Depending on what username set a certain avatar using the dicebear. This is implemented since there is no authentication at the moment.
+    if (username.toLowerCase() == 'felix' ) {
+        username = 'https://api.dicebear.com/9.x/personas/svg?seed=Felix'
+    } else if (username.toLowerCase() == 'riley') {
+        username = 'https://api.dicebear.com/9.x/personas/svg?seed=Riley'
+    } else {
+        // If not Felix or Riley throw a new error to the console
+        throw new Error ('User not found');
+    }
+
 
     // Send the data to the PHP backend with fetch
     const response = await fetch("http://127.0.0.1:8000", {
