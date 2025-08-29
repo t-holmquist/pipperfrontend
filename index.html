@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Page</title>
+    <title>Pipper</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-4 px-10 py-4">
     <!-- Modal overlay that gets user input to pip created -->
+     <div id="modal" class="hidden absolute rounded-2xl p-8 bg-[#e8e6d7] border border-slate-500  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="flex flex-col gap-4"> 
+        <h3 class="text-2xl font-bold">Create new pip</h3>
+        <!-- Get user input from form -->
+        <form id="pipform" method="post" class="flex flex-col gap-3">
+            <label for="username">Your username</label>
+            <input id="username" required name="username" class="border border-slate-500 p-1 rounded-md" type="text">
+            <label for="piptext">What do you want to pip?</label>
+            <textarea minlength="10" maxlength="255" id="piptext" required name="piptext" class="border border-slate-500 p-1 rounded-md min-h-40 min-w-70"></textarea>
+            <button id="createPipButton" type="submit" class="bg-black text-white rounded-full py-1 px-2 hover:bg-slate-700 cursor-pointer">Create pip</button>
+        </form>
+        </div>
+    </div>
     <nav class="flex justify-between w-full items-center">
       <svg fill="#000000ff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="35px" height="35px"><path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"/></svg>
       <div class="flex gap-2 h-fit items-center bg-slate-800 py-2 px-4 border border-slate-500 rounded-full">
@@ -163,10 +176,6 @@
           </button>
         </div>
     </section>
-    <!-- Motion library for animations -->
-    <script type="module">
-      import { animate, scroll } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
-    </script>
     </body>
     <!-- Main javascript file -->
     <script type="module" src="/main.js"></script>
