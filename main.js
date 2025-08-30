@@ -88,3 +88,41 @@ if (document.getElementById('createPipButton')) {
 
 });
 }
+
+
+
+
+// TODO: New event on input that checks if username is either felix or riley and disables button if not one of those
+
+
+
+
+
+// Pip character counter
+const textarea = document.getElementById('piptext');
+
+textarea.addEventListener('input', (event) => {
+
+    const counter = document.getElementById('charactercounter');
+
+    let currentText = event.target.value;
+
+    // Disable create button if text length is less than 10 characters. Improves UX.
+    if (currentText.length < 10) {
+        document.getElementById('createPipButton').setAttribute('disabled', '');
+    } else {
+        document.getElementById('createPipButton').removeAttribute('disabled', '');
+    }
+
+    // If length >= 255 add red text color
+    if(currentText.length >= 255) {
+        counter.classList.add('text-red-500')
+        counter.innerText= `Pip length (255 letters max): ${currentText.length}`;
+    } else {
+
+        // Removes the red color if character length is lower than 255
+        counter.classList.remove('text-red-500');
+        counter.innerText= `Pip length (255 letters max): ${currentText.length}`;
+    }
+
+  });

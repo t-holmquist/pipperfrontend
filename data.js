@@ -30,6 +30,7 @@ document.getElementById('pipform').addEventListener('submit', async (event) => {
     let username = await event.target[0].value;
     let pipText = await event.target[1].value;
 
+
     // Check if username is either Felix or Riley.
     // Depending on what username set a certain avatar using the dicebear. This is implemented since there is no authentication at the moment.
     if (username.toLowerCase() == 'felix' ) {

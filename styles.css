@@ -3,7 +3,6 @@
     box-sizing: border-box;
 }
 
-
 .card-bg {
     background: linear-gradient(180deg, #032832 40%, #0d3e3f 100%) ;
 
@@ -20,7 +19,6 @@ body {
 }
 
 #pipsection {
-  scrollbar-width: thin;
-  -ms-overflow-style: thin;
-  scrollbar-color: #5a5a5a #606060;
+  scrollbar-width:thin;
+  scrollbar-color: #acacac #a3a3a3;
 }
