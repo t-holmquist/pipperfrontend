@@ -1,10 +1,5 @@
 import {getPips} from './data.js';
-import { animate } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
-
-
-// ANIMATIONS - With the motion.js library
-const profileCard = document.getElementById('profilecard');
-animate(profileCard, { y: [10, 0] }, { duration: 0.7 })
+import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 
 // Create pips and display them in the DOM
@@ -35,8 +30,8 @@ const RenderPips = async () => {
     data.forEach((pip) => {
 
         // Create outer div
-        const outerDiv = document.createElement('div');
-        outerDiv.className = 'flex flex-col gap-2 border border-black rounded-2xl p-4 min-h-50 shadow-sm'
+        const outerListItem = document.createElement('li');
+        outerListItem.className = 'flex flex-col gap-2 border border-black bg-slate-100 rounded-2xl p-4 min-h-50'
     
         // Create user image
         const img = document.createElement('img');
@@ -48,11 +43,14 @@ const RenderPips = async () => {
         pipText.innerText = pip.pipText;
     
         // Put together the whole pip html
-        outerDiv.appendChild(img)
-        outerDiv.appendChild(pipText)
+        outerListItem.appendChild(img)
+        outerListItem.appendChild(pipText)
     
         // Append the whole pip to the pipcontainer in the html
-        document.getElementById('pipcontainer').appendChild(outerDiv);
+        document.getElementById('pipcontainer').appendChild(outerListItem);
+
+        // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
+        animate('.pipcontainer li', { opacity: [0, 1], y: [30, 0] }, { delay: stagger(0.2) })
 
     })
 }
