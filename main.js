@@ -67,6 +67,11 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
     const modal = document.getElementById('modal');
 
     modal.classList.remove('hidden');
+
+    // Create a transparent overlay that lowers opacity on background UI and prevents interaction from user
+    const overlay = document.getElementById('overlay');
+    overlay.classList.remove('hidden');
+    
     
 });
 
@@ -77,6 +82,11 @@ if (document.getElementById('createPipButton')) {
     const modal = document.getElementById('modal');
 
     modal.classList.add('hidden');
+
+
+    // Removes transparent overlay that lowers opacity on background UI and prevents interaction from user
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('hidden');
 
 });
 }
