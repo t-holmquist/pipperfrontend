@@ -105,7 +105,7 @@ textarea.addEventListener('input', (event) => {
     let currentText = event.target.value;
 
     // Disable create button if text length is less than 10 characters. Improves UX.
-    if (currentText.length < 10) {
+    if (currentText.length < 3) {
         document.getElementById('createPipButton').setAttribute('disabled', '');
     } else {
         document.getElementById('createPipButton').removeAttribute('disabled', '');

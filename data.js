@@ -1,3 +1,4 @@
+import { animate } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 // Fetch pips using a GET request
 export const getPips = async () => {
@@ -46,6 +47,9 @@ export const addPip = async (refetchFunction) => {
             // And display error message to user. 
             const errorMessageElement = document.getElementById('errormessage')
             errorMessageElement.innerText = 'Incorrect username'
+
+            animate(errorMessageElement, {y: [10, 0]})
+
     
             // Throw console error and stop running.
             throw new Error ('User not found');
