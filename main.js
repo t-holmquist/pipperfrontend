@@ -1,11 +1,6 @@
 import {getPips, addPip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
-// TODO: Make delete button on each pip in the renderpips function that calls
-// a PUT request made in data.js that sends a PUT request to delete the pip with that specific pipId 
-// (acces to this in the loop)
-
-
 
 // Create pips and display them in the DOM
 const RenderPips = async () => {
@@ -39,10 +34,17 @@ const RenderPips = async () => {
     // Loop over data and add a pip for each array index
     data.forEach((pip) => {
 
-        // Create outer div
-        const outerListItem = document.createElement('li');
-        outerListItem.className = 'flex flex-col gap-2 border border-black bg-slate-100 rounded-2xl p-4 min-h-50'
-    
+        // Create outer listitem
+        const listItem = document.createElement('li');
+        listItem.className = 'flex flex-col gap-2 border border-black bg-slate-100 rounded-2xl p-4 min-h-50'
+
+         // Create inner div
+        const innerdiv = document.createElement('div');
+        innerdiv.className = 'flex justify-between';
+
+        // Append inner div to space image and delete button
+        listItem.appendChild(innerdiv)
+
         // Create user image
         const img = document.createElement('img');
         img.className = 'w-10 h-10 rounded-full bg-green-950 hover:translate-x-1 transition-transform';
@@ -51,13 +53,27 @@ const RenderPips = async () => {
         // Create pip text
         const pipText = document.createElement('p');
         pipText.innerText = pip.pipText;
+
+        listItem.appendChild(pipText)
     
         // Put together the whole pip html
-        outerListItem.appendChild(img)
-        outerListItem.appendChild(pipText)
+        innerdiv.appendChild(img)
+        
+
+        // Create delete button
+        // ONLY CREATE IF USERNAME == FELIX. This is the logged in user (simulated)
+        // Includes method is used since data is a string containing the dicebear api url and the name "felix"
+        if (pip.userName.toLowerCase().includes('felix')) {
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText='Delete'
+            deleteButton.className = 'h-fit p-1 border border-slate-400 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
+            innerdiv.appendChild(deleteButton)
+        }
+
     
         // Append the whole pip to the pipcontainer in the html
-        document.getElementById('pipcontainer').appendChild(outerListItem);
+        document.getElementById('pipcontainer').appendChild(listItem);
 
         // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
         animate('.pipcontainer li', { opacity: [0, 1], y: [30, 0] }, { delay: stagger(0.2) })
@@ -90,8 +106,6 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
     
     
 });
-
-// TODO: New event on input that checks if username is either felix or riley and disables button if not one of those
 
 
 
