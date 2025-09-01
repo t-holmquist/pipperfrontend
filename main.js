@@ -76,7 +76,7 @@ const RenderPips = async () => {
         document.getElementById('pipcontainer').appendChild(listItem);
 
         // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
-        animate('.pipcontainer li', { opacity: [0, 1], y: [30, 0] }, { delay: stagger(0.2) })
+        animate('.pipcontainer li', { opacity: [0, 1], y: [-20, 0] }, { delay: stagger(0.2) })
 
     })
 }
