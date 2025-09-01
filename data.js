@@ -47,7 +47,7 @@ export const addPip = async (refetchFunction) => {
             const errorMessageElement = document.getElementById('errormessage')
             errorMessageElement.innerText = 'Incorrect username'
     
-            // Throw console error also.
+            // Throw console error and stop running.
             throw new Error ('User not found');
         }
 

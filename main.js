@@ -79,6 +79,11 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
 
     modal.classList.remove('hidden');
 
+    // Animate the modal if it is no longer hidden with CSS
+    if(modal.classList.contains('hidden') == false) {
+        animate(modal, {scale: [0.8, 1]}, {ease: 'circOut'})
+    }
+
     // Create a transparent overlay that lowers opacity on background UI and prevents interaction from user
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
