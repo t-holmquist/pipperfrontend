@@ -1,6 +1,11 @@
 import {getPips} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
+// TODO: Make delete button on each pip in the renderpips function that calls
+// a PUT request made in data.js that sends a PUT request to delete the pip with that specific pipId 
+// (acces to this in the loop)
+
+
 
 // Create pips and display them in the DOM
 const RenderPips = async () => {
@@ -73,27 +78,7 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
     
 });
 
-// Remove modal
-if (document.getElementById('createPipButton')) {
-    document.getElementById('createPipButton').addEventListener('click', () => {
-
-    const modal = document.getElementById('modal');
-
-    modal.classList.add('hidden');
-
-
-    // Removes transparent overlay that lowers opacity on background UI and prevents interaction from user
-    const overlay = document.getElementById('overlay');
-    overlay.classList.add('hidden');
-
-});
-}
-
-
-
-
 // TODO: New event on input that checks if username is either felix or riley and disables button if not one of those
-
 
 
 
