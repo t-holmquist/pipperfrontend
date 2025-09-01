@@ -22,55 +22,73 @@ export const getPips = async () => {
 
 // Create a new pip with a POST request
 // Get form and add the submit event.
-document.getElementById('pipform').addEventListener('submit', async (event) => {
-    // Prevents reloading the page
-    event.preventDefault();
-
-    let username = await event.target[0].value;
-    let pipText = await event.target[1].value;
-
-
-    // Check if username is either Felix or Riley.
-    // Depending on what username set a certain avatar using the dicebear. This is implemented since there is no authentication at the moment.
-    if (username.toLowerCase() == 'felix' ) {
-        username = 'https://api.dicebear.com/9.x/personas/svg?seed=Felix'
-    } else if (username.toLowerCase() == 'riley') {
-        username = 'https://api.dicebear.com/9.x/personas/svg?seed=Riley'
-    } else {
-        // If not Felix or Riley throw a new error to the console
-        // And display error message to user. Create p element with red color and add to form at the bottom.
-        const errorMessageElement = document.createElement('p')
-        errorMessageElement.innerText = 'Incorrect username'
-        errorMessageElement.classList.add('text-red-500')
-        document.getElementById('pipform').appendChild(errorMessageElement);
-
-        // Throw console error also.
-        throw new Error ('User not found');
-    }
-
-
-    // Send the data to the PHP backend with fetch
-    const response = await fetch("http://127.0.0.1:8000", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    // Format the data as JSON
-    body: JSON.stringify({ username: username, pipText: pipText }),
-    });
-
-
-    // Check if the server recieved the data correcly
-    if(response.ok) {
-
-        // If data is recieved corretly then remove the modal pop-up from the DOM
-        const modal = document.getElementById('modal');
-        modal.classList.add('hidden');
-
-    }
-
+// It takes a refetch function that gets the latest pips AFTER the new pip has been added
+export const addPip = async (refetchFunction) => {
     
-})
+    document.getElementById('pipform').addEventListener('submit', async (event) => {
+        // Prevents reloading the page
+        event.preventDefault();
+    
+
+        // Get username and piptext from the submit event
+        let username = await event.target[0].value;
+        let pipText = await event.target[1].value;
+    
+    
+        // Check if username is either Felix or Riley.
+        // Depending on what username set a certain avatar using the dicebear. This is implemented since there is no authentication at the moment.
+        if (username.toLowerCase() == 'felix' ) {
+            username = 'https://api.dicebear.com/9.x/personas/svg?seed=Felix'
+        } else if (username.toLowerCase() == 'riley') {
+            username = 'https://api.dicebear.com/9.x/personas/svg?seed=Riley'
+        } else {
+            // If not Felix or Riley throw a new error to the console
+            // And display error message to user. 
+            const errorMessageElement = document.getElementById('errormessage')
+            errorMessageElement.innerText = 'Incorrect username'
+    
+            // Throw console error also.
+            throw new Error ('User not found');
+        }
+
+
+        try {
+            // Send the data to the PHP backend with fetch
+            const response = await fetch("http://127.0.0.1:8000", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            // Format the data as JSON
+            body: JSON.stringify({ username: username, pipText: pipText }),
+            });
+        
+        
+            // Check if the server recieved the data correcly
+            if(response.ok) {
+        
+                // If data is recieved corretly then remove the modal pop-up from the DOM
+                const modal = document.getElementById('modal');
+                modal.classList.add('hidden');
+
+                const overlay = document.getElementById('overlay');
+                overlay.classList.add('hidden');
+        
+            }
+
+            // Refetch data with the new pip added
+            await refetchFunction();
+    
+            
+        } catch (error) {
+
+            console.log(error)
+            
+        }
+    })
+
+} 
+
 
 
 

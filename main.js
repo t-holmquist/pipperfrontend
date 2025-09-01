@@ -1,4 +1,4 @@
-import {getPips} from './data.js';
+import {getPips, addPip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 // TODO: Make delete button on each pip in the renderpips function that calls
@@ -9,6 +9,11 @@ import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+es
 
 // Create pips and display them in the DOM
 const RenderPips = async () => {
+
+    // Removes the elements from the DOM each time it is called.
+    // I a new pip is added then it displays correctly instead of being shown on page reload, since it appended to the current element list.
+    const pipContainer = document.getElementById('pipcontainer');
+    pipContainer.innerHTML = '';
 
     // Get the data from the getPips fetching function from the PHP backend
     const data = await getPips();
@@ -63,6 +68,9 @@ const RenderPips = async () => {
 // Run and create and render the pips to the DOM
 RenderPips();
 
+// Add a new pip. Handles user input from modal and the POST request. It also refetches the latests pips.
+addPip(RenderPips);
+
 
 // Create and show modal
 document.getElementById('pipInputField').addEventListener('click', async () => {
@@ -79,7 +87,6 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
 });
 
 // TODO: New event on input that checks if username is either felix or riley and disables button if not one of those
-
 
 
 

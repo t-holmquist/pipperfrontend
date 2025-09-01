@@ -25,10 +25,12 @@
         <label for="piptext">What do you want to pip?</label>
         <textarea minlength="10" maxlength="255" id="piptext" required name="piptext"
           class="border border-slate-500 p-1 rounded-md min-h-40 min-w-70"></textarea>
-        <button id="createPipButton" type="submit"
+        <button id="createPipButton" type="submit" disabled
           class="disabled:bg-gray-300 disabled:cursor-default bg-black text-white rounded-full py-1 px-2 hover:bg-slate-700 cursor-pointer">Post pip</button>
           <!-- Character counter -->
           <p class="text-xs" id="charactercounter"></p>
+          <!-- Render error message to user -->
+          <p class="text-red-500" id="errormessage"></p>
       </form>
     </div>
   </div>
