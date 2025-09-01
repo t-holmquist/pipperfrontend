@@ -1,4 +1,4 @@
-import {getPips, addPip, deletePip} from './data.js';
+import {getPips, addPip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 
@@ -67,12 +67,35 @@ const RenderPips = async () => {
 
             const deleteButton = document.createElement('button');
             deleteButton.innerText='Delete'
-            deleteButton.id = 'deletepip'
+            // Each button has a unique id to know which delete button the user clicks on to delete a pip
+            deleteButton.id = pip.pipId;
             deleteButton.className = 'h-fit p-1 border border-slate-400 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
-            innerdiv.appendChild(deleteButton)
 
-            // Delete button takes in the pipId to know which pip to delete and also the refecth function to update the UI afterwards.
-            deletePip(pip.pipId, RenderPips)
+
+            // Delete button event listenere - after the button is created and exists in the DOM.
+            // Could be moved to data.js, but needs to make sure that the button exists so the event listenere i attached properly
+            deleteButton.addEventListener('click', async () => {
+
+            console.log('button clicked', pip.pipId);
+
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ pipId: pip.pipId }),
+                });
+
+                // Refetch and re-render
+                await RenderPips(); 
+            } catch (error) {
+                console.log(error);
+                }
+            });
+
+            innerdiv.appendChild(deleteButton)
 
 
         }
