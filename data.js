@@ -94,5 +94,42 @@ export const addPip = async (refetchFunction) => {
 } 
 
 
+// Create a new pip with a PUT request to delete a pip
+// It takes a refetch function that gets the latest pips AFTER the new pip has been removed
+export const deletePip = async (pipId, refetchFunction) => {
+    
+    // Check if a delete button is rendered to the DOM
+    if (document.getElementById('deletepip')) {
+
+        // Listen for click and send a PUT request
+        document.getElementById('deletepip').addEventListener('click', async () => {
+    
+            try {
+                // Send the data to the PHP backend with fetch
+                const response = await fetch("http://127.0.0.1:8000", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                // Format the data as JSON. Pip id aquired from the Renderpips function that gets data from getPips function.
+                body: JSON.stringify({ pipId: pipId }),
+                });
+            
+                // Refetch data with the new pip added
+                await refetchFunction();
+    
+                
+            } catch (error) {
+    
+                console.log(error)
+                
+            }
+        })
+
+    }
+
+} 
+
+
 
 

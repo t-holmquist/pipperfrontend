@@ -1,4 +1,4 @@
-import {getPips, addPip} from './data.js';
+import {getPips, addPip, deletePip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 
@@ -67,8 +67,14 @@ const RenderPips = async () => {
 
             const deleteButton = document.createElement('button');
             deleteButton.innerText='Delete'
+            deleteButton.id = 'deletepip'
             deleteButton.className = 'h-fit p-1 border border-slate-400 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
             innerdiv.appendChild(deleteButton)
+
+            // Delete button takes in the pipId to know which pip to delete and also the refecth function to update the UI afterwards.
+            deletePip(pip.pipId, RenderPips)
+
+
         }
 
     
