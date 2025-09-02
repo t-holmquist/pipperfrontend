@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Pipper</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
@@ -176,36 +175,21 @@
     <!-- People to follow -->
     <div class="gap-6 flex flex-col p-6 col-span-3 row-span-3 card-bg rounded-2xl">
       <h3 class="font-bold text-lg text-white">People you might want to follow</h3>
-      <div class="flex gap-4 items-center">
-        <img src="https://api.dicebear.com/9.x/personas/svg?seed=Aneka" height="40" width="40" alt="user portrait" />
-        <div class="flex flex-col gap-1">
-          <p class="text-sm text-white">Bernie Learney</p>
-          <p class="text-gray-400 text-sm">@bernielearney</p>
+      <template id="persontemplate">
+        <div class="flex gap-4 items-center">
+          <img class="avatar" height="40" width="40" alt="user portrait" />
+          <div class="flex flex-col gap-1">
+            <p class="name text-sm text-white">Bernie Learney</p>
+            <p class="handle text-gray-400 text-sm">@bernielearney</p>
+          </div>
+          <div class="flex justify-end flex-1">
+            <button class="followbutton bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
+              <p class="text-black text-sm">Follow</p>
+            </button>
+          </div>
         </div>
-        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
-          <p class="text-black text-sm">Follow</p>
-        </button>
-      </div>
-      <div class="flex gap-4 items-center">
-        <img src="https://api.dicebear.com/9.x/personas/svg?seed=Riley" height="40" width="40" alt="user portrait" />
-        <div class="flex flex-col gap-1">
-          <p class="text-sm text-white">Jane Doe</p>
-          <p class="text-gray-400 text-sm">@bernielearney</p>
-        </div>
-        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
-          <p class="text-black text-sm">Follow</p>
-        </button>
-      </div>
-      <div class="flex gap-4 items-center">
-        <img src="https://api.dicebear.com/9.x/personas/svg?seed=Alexander" height="40" width="40"
-          alt="user portrait" />
-        <div class="flex flex-col gap-1">
-          <p class="text-sm text-white">Santa Claus</p>
-          <p class="text-gray-400 text-sm">@bernielearney</p>
-        </div>
-        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
-          <p class="text-black text-sm">Follow</p>
-        </button>
+      </template>
+      <div id="followpersoncontainer" class="flex flex-col gap-6">
       </div>
       <button class="w-fit rounded-lg py-1 px-2 cursor-pointer">
         <p class="text-xs text-gray-200 hover:text-gray-300">Discover more people</p>
@@ -215,5 +199,4 @@
 </body>
 <!-- Main javascript file -->
 <script type="module" src="/main.js"></script>
-
 </html>

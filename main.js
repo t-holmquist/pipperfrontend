@@ -197,3 +197,48 @@ const renderPipTags = () => {
 }
 
 renderPipTags();
+
+
+
+// Render trending pip tags
+const renderFollowPeople = () => {
+
+    // Array of persons
+    const persons = [
+        {id: 1, name: 'Berney Cranston', handle: '@berneycranston', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Aneka'},
+        {id: 2, name: 'Jane Doe', handle: '@janedoe', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Riley'},
+        {id: 3, name: 'Santa Clause', handle: '@santaclaus', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Alexander'},
+        
+    ];
+
+    persons.forEach((person) => {
+
+        // Make a clone of the person template
+        const persontemplate = document.getElementById('persontemplate');
+        const clon = persontemplate.content.cloneNode(true);
+        
+        // Get alle the elements and add the information from the persons array
+        clon.querySelector('.avatar').src = person.avatar
+        clon.querySelector('.name').innerText = person.name
+        clon.querySelector('.handle').innerText = person.handle
+        const followbutton = clon.querySelector('.followbutton');
+
+        // Followed state of button
+       followbutton.addEventListener('click', () => {
+        
+        // Update css and text on click 
+        followbutton.className = 'bg-green-200 rounded-lg py-1 px-2 text-sm hover:bg-slate-300 cursor-pointer'
+        followbutton.innerText = 'Followed'
+
+       })
+
+        // Append the new clon to the container of the pip tags
+        document.getElementById('followpersoncontainer').appendChild(clon);
+
+        
+        
+
+    })
+}
+
+renderFollowPeople();
