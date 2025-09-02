@@ -8,6 +8,11 @@
 
 }
 
+.pip-bg {
+    background: linear-gradient(0deg, #f7f5f5 60%, #e5eae6 100%) ;
+
+}
+
 .card-bg-second {
     background-color: #f0efe3;
 }

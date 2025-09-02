@@ -36,7 +36,7 @@ const RenderPips = async () => {
 
         // Create outer listitem
         const listItem = document.createElement('li');
-        listItem.className = 'flex flex-col gap-2 border border-black bg-slate-100 rounded-2xl p-4 min-h-50'
+        listItem.className = 'flex flex-col gap-2 border border-slate-400 pip-bg rounded-2xl p-4 min-h-50'
 
          // Create inner div
         const innerdiv = document.createElement('div');
@@ -100,7 +100,6 @@ const RenderPips = async () => {
 
         }
 
-    
         // Append the whole pip to the pipcontainer in the html
         document.getElementById('pipcontainer').appendChild(listItem);
 
@@ -172,11 +171,12 @@ const renderPipTags = () => {
 
     // Array of piptags
     const pipTags = [
-        {id: 1, title: 'Home automation', numberOfPips: '87.3k'},
-        {id: 2, title: 'Ascii art', numberOfPips: '30.3k'},
-        {id: 3, title: 'Minimalism', numberOfPips: '20.3k'},
+        {id: 1, title: 'Home automation', numberOfPips: '87.2k'},
+        {id: 2, title: 'Ascii art', numberOfPips: '30.7k'},
+        {id: 3, title: 'Minimalism', numberOfPips: '20.1k'},
         {id: 4, title: 'Sunglasses', numberOfPips: '5.3k'},
-        {id: 5, title: 'Running shoes', numberOfPips: '68.3k'},
+        {id: 5, title: 'Running shoes', numberOfPips: '68.9k'},
+        {id: 6, title: 'UX design', numberOfPips: '34.3k'},
     ];
 
     pipTags.forEach((pipTag) => {
@@ -192,18 +192,8 @@ const renderPipTags = () => {
         // Append the new clon to the container of the pip tags
         document.getElementById('pipTagContainer').appendChild(clon);
 
+
     })
-
-
-    
-    
-
-    
-    
-
-    
-
-
 }
 
 renderPipTags();
