@@ -69,7 +69,7 @@ const RenderPips = async () => {
             deleteButton.innerText='Delete'
             // Each button has a unique id to know which delete button the user clicks on to delete a pip
             deleteButton.id = pip.pipId;
-            deleteButton.className = 'h-fit p-1 border border-slate-400 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
+            deleteButton.className = 'h-fit p-1 border border-slate-500 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
 
 
             // Delete button event listenere - after the button is created and exists in the DOM.
@@ -137,7 +137,6 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
 });
 
 
-
 // Pip character counter
 const textarea = document.getElementById('piptext');
 
@@ -166,3 +165,45 @@ textarea.addEventListener('input', (event) => {
     }
 
   });
+
+
+// Render trending pip tags
+const renderPipTags = () => {
+
+    // Array of piptags
+    const pipTags = [
+        {id: 1, title: 'Home automation', numberOfPips: '87.3k'},
+        {id: 2, title: 'Ascii art', numberOfPips: '30.3k'},
+        {id: 3, title: 'Minimalism', numberOfPips: '20.3k'},
+        {id: 4, title: 'Sunglasses', numberOfPips: '5.3k'},
+        {id: 5, title: 'Running shoes', numberOfPips: '68.3k'},
+    ];
+
+    pipTags.forEach((pipTag) => {
+
+        // Make a clone of the pip tag template
+        const pipTagTemplate = document.getElementById('pipTagTemplate');
+        const clon = pipTagTemplate.content.cloneNode(true);
+
+        // Get alle the elements and add the information from the piptags array
+        clon.querySelector('.title').innerText = pipTag.title
+        clon.querySelector('.numberOfPips').innerText = pipTag.numberOfPips
+
+        // Append the new clon to the container of the pip tags
+        document.getElementById('pipTagContainer').appendChild(clon);
+
+    })
+
+
+    
+    
+
+    
+    
+
+    
+
+
+}
+
+renderPipTags();

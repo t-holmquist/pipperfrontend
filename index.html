@@ -61,7 +61,7 @@
         src="https://api.dicebear.com/9.x/personas/svg?seed=Felix&backgroundColor=ffdfbf" height="80" width="80"
         alt="user portrait" />
       <h2 class="font-bold text-2xl text-white group-hover:scale-105 transition-transform">Felix baumgartner</h2>
-      <p class="text-gray-400 group-hover:translate-y-1 transition-transform">@johndoetheman</p>
+      <p class="text-gray-400 group-hover:translate-y-1 transition-transform">@felixb</p>
       <p class="text-center text-white text-gray-400 group-hover:translate-y-1 transition-transform">I love making pips
         about the things that I find interesting</p>
       <div class="flex gap-8 text-center group-hover:translate-y-1 transition-transform">
@@ -89,7 +89,7 @@
       </div>
       <!-- Tools -->
       <div class="flex gap-4">
-        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-full">
+        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-lg">
           <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
             <path fill="#63E6BE"
@@ -97,7 +97,7 @@
           </svg>
           <p class="text-gray-400 text-sm">Photo</p>
         </div>
-        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-full">
+        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-lg">
           <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
             <path fill="#63E6BE"
@@ -105,7 +105,7 @@
           </svg>
           <p class="text-gray-400 text-sm">Video</p>
         </div>
-        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-full">
+        <div class="flex items-center gap-2 border border-slate-500 py-1 px-4 rounded-lg">
           <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
             <path fill="#63E6BE"
@@ -116,61 +116,25 @@
       </div>
     </div>
     <!-- Trending pip tags -->
-    <div class="gap-6 card-bg flex flex-col p-6 col-span-3 row-span-4 rounded-2xl">
+    <div class="gap-4 card-bg flex flex-col p-6 col-span-3 row-span-4 rounded-2xl">
       <h3 class="font-bold text-lg text-white">Trending pip tags</h3>
       <p class="text-gray-400">Trending in Denmark</p>
-      <div class="flex flex-col gap-4">
-        <!-- Individal tag group -->
-        <div class="flex gap-6 items-center">
-          <p class="text-2xl text-white">#</p>
-          <div class="flex flex-col">
-            <p class="text-sm text-white">Home automation</p>
-            <p class="text-gray-400 text-sm">87.3k pips</p>
+      <div id="pipTagContainer" class="flex flex-col gap-4">
+        <!-- Individal tag group queryselector gets them by classname and sets values -->
+        <template id="pipTagTemplate">
+          <div class="flex gap-6 items-center justify-between">
+            <p class="text-2xl text-white">#</p>
+            <div class="flex flex-col">
+              <p class="title text-sm text-white"></p>
+              <p class="numberOfPips text-gray-400 text-sm"></p>
+            </div>
+            <div class="flex-1 flex justify-end">
+              <button class="rounded-full py-1 px-2 cursor-pointer">
+                <p class="text-xs text-white hover:text-gray-300">See pips</p>
+              </button>
+            </div>
           </div>
-          <button class="border border-slate-500 rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-            <p class="text-sm text-white">See pips</p>
-          </button>
-        </div>
-        <div class="flex gap-6 items-center">
-          <p class="text-2xl text-white">#</p>
-          <div class="flex flex-col">
-            <p class="text-sm text-white">Ascii art</p>
-            <p class="text-gray-400 text-sm">87.3k pips</p>
-          </div>
-          <button class="border border-slate-500 rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-            <p class="text-sm text-white">See pips</p>
-          </button>
-        </div>
-        <div class="flex gap-6 items-center">
-          <p class="text-2xl text-white">#</p>
-          <div class="flex flex-col">
-            <p class="text-sm text-white">Minimalism</p>
-            <p class="text-gray-400 text-sm">87.3k pips</p>
-          </div>
-          <button class="border border-slate-500 rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-            <p class="text-sm text-white">See pips</p>
-          </button>
-        </div>
-        <div class="flex gap-6 items-center">
-          <p class="text-2xl text-white">#</p>
-          <div class="flex flex-col">
-            <p class="text-sm text-white">Sunglasses</p>
-            <p class="text-gray-400 text-sm">87.3k pips</p>
-          </div>
-          <button class="border border-slate-500 rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-            <p class="text-sm text-white">See pips</p>
-          </button>
-        </div>
-        <div class="flex gap-6 items-center">
-          <p class="text-2xl text-white">#</p>
-          <div class="flex flex-col">
-            <p class="text-sm text-white">Running shoes</p>
-            <p class="text-gray-400 text-sm">87.3k pips</p>
-          </div>
-          <button class="border border-slate-500 rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-            <p class="text-sm text-white">See pips</p>
-          </button>
-        </div>
+        </template>
       </div>
     </div>
     <!-- Pips section -->
@@ -188,7 +152,7 @@
           <p class="text-sm text-white">Bernie Learney</p>
           <p class="text-gray-400 text-sm">@bernielearney</p>
         </div>
-        <button class="bg-white rounded-full py-1 px-2 hover:bg-slate-300 cursor-pointer">
+        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
           <p class="text-black text-sm">Follow</p>
         </button>
       </div>
@@ -198,7 +162,7 @@
           <p class="text-sm text-white">Jane Doe</p>
           <p class="text-gray-400 text-sm">@bernielearney</p>
         </div>
-        <button class="bg-white rounded-full py-1 px-2 hover:bg-slate-300 cursor-pointer">
+        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
           <p class="text-black text-sm">Follow</p>
         </button>
       </div>
@@ -209,12 +173,12 @@
           <p class="text-sm text-white">Santa Claus</p>
           <p class="text-gray-400 text-sm">@bernielearney</p>
         </div>
-        <button class="bg-white rounded-full py-1 px-2 hover:bg-slate-300 cursor-pointer">
+        <button class="bg-white rounded-lg py-1 px-2 hover:bg-slate-300 cursor-pointer">
           <p class="text-black text-sm">Follow</p>
         </button>
       </div>
-      <button class="border border-slate-500 w-fit rounded-full py-1 px-2 hover:bg-slate-900 cursor-pointer">
-        <p class="text-sm text-gray-400">Discover more people</p>
+      <button class="w-fit rounded-lg py-1 px-2 cursor-pointer">
+        <p class="text-xs text-gray-200 hover:text-gray-300">Discover more people</p>
       </button>
     </div>
   </section>
