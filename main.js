@@ -1,82 +1,59 @@
 import {getPips, addPip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
-
 // Create pips and display them in the DOM
 const RenderPips = async () => {
 
     // Removes the elements from the DOM each time it is called.
-    // I a new pip is added then it displays correctly instead of being shown on page reload, since it appended to the current element list.
-    const pipContainer = document.getElementById('pipcontainer');
-    pipContainer.innerHTML = '';
+    // If a new pip is added then it displays correctly instead of being shown on page reload, since it appended to the current element list.
+
+    // const pipContainer = document.getElementById('pipcontainer');
+    // pipContainer.innerHTML = '';
 
     // Get the data from the getPips fetching function from the PHP backend
     const data = await getPips();
-
-    // If no data render skeleton loading UI
-    if (!data) {
-
-        const skeletons = [0, 1, 2, 3, 5]
-
-        skeletons.forEach((pip) => {
-
-        // Create outer div
-        const outerDiv = document.createElement('div');
-        outerDiv.className = 'flex flex-col gap-2 bg-slate-300 rounded-2xl p-4 min-h-50 shadow-sm animate-pulse'
-    
-        // Append the whole pip to the pipcontainer in the html
-        document.getElementById('pipcontainer').appendChild(outerDiv);
-
-    })
-    }
-
     
     // Loop over data and add a pip for each array index
     data.forEach((pip) => {
 
-        // Create outer listitem
-        const listItem = document.createElement('li');
-        listItem.className = 'flex flex-col gap-2 border border-slate-400 pip-bg rounded-2xl p-4 min-h-50'
-
-         // Create inner div
-        const innerdiv = document.createElement('div');
-        innerdiv.className = 'flex justify-between';
-
-        // Append inner div to space image and delete button
-        listItem.appendChild(innerdiv)
-
-        // Create user image
-        const img = document.createElement('img');
-        img.className = 'w-10 h-10 rounded-full bg-green-950 hover:translate-x-1 transition-transform';
-        img.src = pip.userName
-    
-        // Create pip text
-        const pipText = document.createElement('p');
-        pipText.innerText = pip.pipText;
-
-        listItem.appendChild(pipText)
-    
-        // Put together the whole pip html
-        innerdiv.appendChild(img)
+        // Make a clone of the pip template
+        const piptemplate = document.getElementById('piptemplate');
         
+        const clon = piptemplate.content.cloneNode(true);
+
+        // Extract the real username from the dicebear api url
+        const url = pip.userName;
+        const urlParams = new URLSearchParams(new URL(url).search); // Gets the query string and returns a url object
+        const username = urlParams.get('seed');
+
+        // Convert the timestamp to a more userfriendly format before setting text to the DOM
+        const timestamp = pip.created_at;
+        const date = new Date(timestamp);
+
+        // User-friendly date and time
+        const userFriendlyDatetime = date.toLocaleString('da-DK', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        });
+
+        // Get alle the elements and add the information from the pip array
+        clon.querySelector('.name').innerText = username
+        clon.querySelector('.userimage').src = pip.userName
+        clon.querySelector('.date').innerText = userFriendlyDatetime
+        clon.querySelector('.piptext').innerText = pip.pipText
 
         // Create delete button
         // ONLY CREATE IF USERNAME == FELIX. This is the logged in user (simulated)
         // Includes method is used since data is a string containing the dicebear api url and the name "felix"
         if (pip.userName.toLowerCase().includes('felix')) {
 
-            const deleteButton = document.createElement('button');
-            deleteButton.innerText='Delete'
             // Each button has a unique id to know which delete button the user clicks on to delete a pip
-            deleteButton.id = pip.pipId;
-            deleteButton.className = 'h-fit p-1 border border-slate-500 cursor-pointer hover:bg-red-500 hover:text-white rounded-lg text-xs'
-
-
+            clon.querySelector('.delete').id = pip.pipId;
+        
             // Delete button event listenere - after the button is created and exists in the DOM.
             // Could be moved to data.js, but needs to make sure that the button exists so the event listenere i attached properly
-            deleteButton.addEventListener('click', async () => {
-
-            console.log('button clicked', pip.pipId);
+            clon.querySelector('.delete').addEventListener('click', async () => {
 
 
             try {
@@ -95,13 +72,14 @@ const RenderPips = async () => {
                 }
             });
 
-            innerdiv.appendChild(deleteButton)
-
-
+        } else {
+            // Hides the delete buttons when the user is not "Felix"
+            clon.querySelector('.delete').classList.add('hidden')
+            
         }
 
-        // Append the whole pip to the pipcontainer in the html
-        document.getElementById('pipcontainer').appendChild(listItem);
+        // Append the new clon to the container of the pip
+        document.getElementById('pipcontainer').appendChild(clon);
 
         // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
         animate('.pipcontainer li', { opacity: [0, 1], y: [-20, 0] }, { delay: stagger(0.2) })

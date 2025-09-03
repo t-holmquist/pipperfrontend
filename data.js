@@ -57,6 +57,7 @@ export const addPip = async (refetchFunction) => {
 
 
         try {
+            
             // Send the data to the PHP backend with fetch
             const response = await fetch("http://127.0.0.1:8000", {
             method: "POST",
@@ -67,21 +68,24 @@ export const addPip = async (refetchFunction) => {
             body: JSON.stringify({ username: username, pipText: pipText }),
             });
         
-        
+
             // Check if the server recieved the data correcly
             if(response.ok) {
         
-                // If data is recieved corretly then remove the modal pop-up from the DOM
+                // If data is recieved correctly then remove the modal pop-up from the DOM
                 const modal = document.getElementById('modal');
                 modal.classList.add('hidden');
 
                 const overlay = document.getElementById('overlay');
                 overlay.classList.add('hidden');
+
+                // TODO: Get the new pip id back from the PHP server and add the pip instead of refetching all the data
+                // Refetch data with the new pip added
+                await refetchFunction();
         
             }
 
-            // Refetch data with the new pip added
-            await refetchFunction();
+            
     
             
         } catch (error) {
