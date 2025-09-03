@@ -1,4 +1,4 @@
-import {getPips, addPip} from './data.js';
+import {getPips, addPip, deletePip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 // Create pips and display them in the DOM
@@ -48,28 +48,11 @@ const RenderPips = async () => {
         // Includes method is used since data is a string containing the dicebear api url and the name "felix"
         if (pip.userName.toLowerCase().includes('felix')) {
 
-            // Each button has a unique id to know which delete button the user clicks on to delete a pip
-            clon.querySelector('.delete').id = pip.pipId;
-        
             // Delete button event listenere - after the button is created and exists in the DOM.
-            // Could be moved to data.js, but needs to make sure that the button exists so the event listenere i attached properly
             clon.querySelector('.delete').addEventListener('click', async () => {
 
-
-            try {
-                const response = await fetch("http://127.0.0.1:8000", {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ pipId: pip.pipId }),
-                });
-
-                // Refetch and re-render
-                await RenderPips(); 
-            } catch (error) {
-                console.log(error);
-                }
+                // Delete the specific pip in the DB
+                deletePip(pip.pipId);
             });
 
         } else {

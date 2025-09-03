@@ -96,3 +96,21 @@ export const addPip = async (refetchFunction) => {
     })
 
 } 
+
+
+
+export const deletePip = async (pipId) => {
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ pipId: pipId }),
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
