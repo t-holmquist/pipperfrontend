@@ -43,6 +43,11 @@ const RenderPips = async () => {
         clon.querySelector('.date').innerText = userFriendlyDatetime
         clon.querySelector('.piptext').innerText = pip.pipText
 
+        // Get the root element of the template WHICH EXISTS IN THE DOM - clon does not because it is a document fragment and not added to the DOM yet.
+        // Clon cannot be removed with the .remove() function, since it does not have that function.
+        const pipElement = clon.querySelector('li');
+       
+
         // Create delete button
         // ONLY CREATE IF USERNAME == FELIX. This is the logged in user (simulated)
         // Includes method is used since data is a string containing the dicebear api url and the name "felix"
@@ -52,7 +57,11 @@ const RenderPips = async () => {
             clon.querySelector('.delete').addEventListener('click', async () => {
 
                 // Delete the specific pip in the DB
-                deletePip(pip.pipId);
+                await deletePip(pip.pipId);
+
+                // Delete from the browser DOM also to improve UX (it is already deleted in DB and will not show on page reload)
+                pipElement.remove()
+                
             });
 
         } else {
