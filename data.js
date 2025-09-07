@@ -21,15 +21,13 @@ export const getPips = async () => {
     }
 }
 
-// Create a new pip with a POST request
-// Get form and add the submit event.
-// It takes a refetch function that gets the latest pips AFTER the new pip has been added
-export const addPip = async (refetchFunction) => {
+// Make a clone of the template and add a new pip
+
+export const addPip = async () => {
     
     document.getElementById('pipform').addEventListener('submit', async (event) => {
         // Prevents reloading the page
         event.preventDefault();
-    
 
         // Get username and piptext from the submit event
         let username = await event.target[0].value;
@@ -69,9 +67,12 @@ export const addPip = async (refetchFunction) => {
             });
         
 
-            // Check if the server recieved the data correcly
+            // Check if the server recieved the data correcly and temporarily add pip to front-end to improve UX.
             if(response.ok) {
-        
+
+                // Convert the response to JS object
+                const pipdata = await response.json();
+                
                 // If data is recieved correctly then remove the modal pop-up from the DOM
                 const modal = document.getElementById('modal');
                 modal.classList.add('hidden');
@@ -79,15 +80,38 @@ export const addPip = async (refetchFunction) => {
                 const overlay = document.getElementById('overlay');
                 overlay.classList.add('hidden');
 
-                // TODO: Get the new pip id back from the PHP server and add the pip instead of refetching all the data
-                // Refetch data with the new pip added
-                await refetchFunction();
-        
+                // Make a clone of the pip template
+                const piptemplate = document.getElementById('piptemplate');
+                
+                const clon = piptemplate.content.cloneNode(true);
+                
+
+                // Extract real username from the dicebear api username
+                const urlParams = new URLSearchParams(new URL(pipdata.username).search); // Gets the query string and returns a url object
+                const realusername = urlParams.get('seed');
+
+                // Convert the timestamp to a more userfriendly format before setting text to the DOM
+                const timestamp = pipdata.created_at
+                const date = new Date(timestamp);
+
+                // User-friendly date and time
+                const userFriendlyDatetime = date.toLocaleString('da-DK', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                });                
+
+                // Get alle the elements and add the information from the pip array
+                clon.querySelector('.name').innerText = realusername
+                clon.querySelector('.userimage').src = pipdata.username
+                clon.querySelector('.date').innerText = userFriendlyDatetime
+                clon.querySelector('.piptext').innerText = pipdata.pipText
+                
+                // Add the pip to the DOM (AT THE TOP with prepend)
+                document.getElementById('pipcontainer').prepend(clon);
+                
             }
 
-            
-    
-            
         } catch (error) {
 
             console.log(error)

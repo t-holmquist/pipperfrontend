@@ -4,12 +4,6 @@ import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+es
 // Create pips and display them in the DOM
 const RenderPips = async () => {
 
-    // Removes the elements from the DOM each time it is called.
-    // If a new pip is added then it displays correctly instead of being shown on page reload, since it appended to the current element list.
-
-    // const pipContainer = document.getElementById('pipcontainer');
-    // pipContainer.innerHTML = '';
-
     // Get the data from the getPips fetching function from the PHP backend
     const data = await getPips();
     
@@ -82,8 +76,8 @@ const RenderPips = async () => {
 // Run and create and render the pips to the DOM
 RenderPips();
 
-// Add a new pip. Handles user input from modal and the POST request. It also refetches the latests pips.
-addPip(RenderPips);
+// Add a new pip. Handles user input from modal and the POST request. It also refetches the latest pip.
+addPip();
 
 
 // Create and show modal
@@ -95,7 +89,7 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
 
     // Animate the modal if it is no longer hidden with CSS
     if(modal.classList.contains('hidden') == false) {
-        animate(modal, {scale: [0.8, 1]}, {ease: 'circOut'})
+        animate(modal, {scale: [0.8, 1]})
     }
 
     // Create a transparent overlay that lowers opacity on background UI and prevents interaction from user
@@ -177,7 +171,7 @@ const renderFollowPeople = () => {
     const persons = [
         {id: 1, name: 'Berney Cranston', handle: '@berneycranston', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Aneka'},
         {id: 2, name: 'Jane Doe', handle: '@janedoe', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Riley'},
-        {id: 3, name: 'Santa Clause', handle: '@santaclaus', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Alexander'},
+        {id: 3, name: 'Santa Claus', handle: '@santaclaus', avatar: 'https://api.dicebear.com/9.x/personas/svg?seed=Alexander'},
         
     ];
 
