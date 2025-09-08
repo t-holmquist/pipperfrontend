@@ -22,7 +22,6 @@ export const getPips = async () => {
 }
 
 // Make a clone of the template and add a new pip
-
 export const addPip = async () => {
     
     document.getElementById('pipform').addEventListener('submit', async (event) => {
@@ -46,17 +45,16 @@ export const addPip = async () => {
             const errorMessageElement = document.getElementById('errormessage')
             errorMessageElement.innerText = 'Incorrect username'
 
+            // Animates the message text
             animate(errorMessageElement, {y: [10, 0]})
 
-    
             // Throw console error and stop running.
             throw new Error ('User not found');
         }
 
-
         try {
             
-            // Send the data to the PHP backend with fetch
+            // Send the data to the PHP backend and add a new pip.
             const response = await fetch("http://127.0.0.1:8000", {
             method: "POST",
             headers: {
@@ -72,7 +70,7 @@ export const addPip = async () => {
 
                 // Convert the response to JS object
                 const pipdata = await response.json();
-                
+                       
                 // If data is recieved correctly then remove the modal pop-up from the DOM
                 const modal = document.getElementById('modal');
                 modal.classList.add('hidden');
@@ -86,8 +84,9 @@ export const addPip = async () => {
                 const clon = piptemplate.content.cloneNode(true);
                 
 
-                // Extract real username from the dicebear api username
-                const urlParams = new URLSearchParams(new URL(pipdata.username).search); // Gets the query string and returns a url object
+                // Extract real username from the dicebear api username. Gets the query string and returns a url object
+                // String example: https://api.dicebear.com/9.x/personas/svg?seed=Felix
+                const urlParams = new URLSearchParams(new URL(pipdata.username).search); 
                 const realusername = urlParams.get('seed');
 
                 // Convert the timestamp to a more userfriendly format before setting text to the DOM
@@ -106,6 +105,35 @@ export const addPip = async () => {
                 clon.querySelector('.userimage').src = pipdata.username
                 clon.querySelector('.date').innerText = userFriendlyDatetime
                 clon.querySelector('.piptext').innerText = pipdata.pipText
+
+
+                // Get the root element of the template WHICH EXISTS IN THE DOM - clon does not because it is a document fragment and not added to the DOM yet.
+                // Clon cannot be removed with the .remove() function, since it does not have that function.
+                const pipElement = clon.querySelector('li');
+            
+
+                // ONLY adds delete functionality if username == felix. This is the logged in user (simulated)
+                // Includes method is used since data is a string containing the dicebear api url and the name "felix"
+                if (pipdata.username.toLowerCase().includes('felix')) {
+
+                    // Delete button event listenere - after the button is created and exists in the DOM.
+                    clon.querySelector('.delete').addEventListener('click', async () => {
+
+
+                        // Delete the specific pip in the DB
+                        await deletePip(pipdata.id);
+
+                        // Delete from the browser DOM also to improve UX (it is already deleted in DB and will not show on page reload)
+                        pipElement.remove()
+                        
+                    });
+
+                } else {
+                    // Hides the delete buttons when the user is not "Felix"
+                    clon.querySelector('.delete').classList.add('hidden')
+                    
+                }
+
                 
                 // Add the pip to the DOM (AT THE TOP with prepend)
                 document.getElementById('pipcontainer').prepend(clon);

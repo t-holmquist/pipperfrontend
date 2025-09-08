@@ -42,8 +42,7 @@ const RenderPips = async () => {
         const pipElement = clon.querySelector('li');
        
 
-        // Create delete button
-        // ONLY CREATE IF USERNAME == FELIX. This is the logged in user (simulated)
+        // ONLY adds delete functionality if username == felix. This is the logged in user (simulated)
         // Includes method is used since data is a string containing the dicebear api url and the name "felix"
         if (pip.userName.toLowerCase().includes('felix')) {
 
