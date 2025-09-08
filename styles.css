@@ -4,13 +4,20 @@
 }
 
 .card-bg {
-    background: linear-gradient(180deg, #032832 40%, #0d3e3f 100%) ;
+    background: linear-gradient(180deg, #011205 40%, #061909 100%) ;
 
 }
 
 .pip-bg {
-    background: linear-gradient(0deg, #f7f5f5 60%, #e5eae6 100%) ;
+    /* background: linear-gradient(0deg, #f7f5f5 60%, #e5eae6 100%); */
+    background-color: #e5eae6;
+    
 
+}
+
+.pip-bg:hover {
+    background-color: #dce7dd;
+    
 }
 
 .card-bg-second {
@@ -19,7 +26,7 @@
 
 body {
     /* background-color: #e8e6d7; */
-    background-color: #F8F8F8;
+    background-color: #f3f6f4;
     
 }
 
@@ -27,3 +34,4 @@ body {
   scrollbar-width:thin;
   scrollbar-color: #acacac #a3a3a3;
 }
+
