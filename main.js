@@ -95,11 +95,10 @@ document.getElementById('pipInputField').addEventListener('click', async () => {
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
     
-    
 });
 
 
-// Pip character counter
+// Pip character counter and disabled submit button logic
 const textarea = document.getElementById('piptext');
 
 textarea.addEventListener('input', (event) => {
