@@ -14,6 +14,10 @@ const RenderPips = async (offset) => {
     let next_offset = data.pagination['next_offset']
     nextoffsetelement.innerText = next_offset;
 
+    // Pip array to store the pips so that they can be animated later. It is overwritten each time the function is called
+    // to avoid animating the old ones
+    let newPips = [];
+
     
     // Loop over data and add a pip for each array index
     data.data.forEach((pip) => {
@@ -71,12 +75,17 @@ const RenderPips = async (offset) => {
             
         }
 
+
         // Append the new clon to the container of the pip
         document.getElementById('pipList').appendChild(clon);
 
+        // Store reference to the newly added pip element
+        newPips.push(pipElement);
+
 
         // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
-        animate('.pipcontainer li', { opacity: [0, 1], y: [-20, 0] }, { delay: stagger(0.2) })
+        // The animate function gets html elements and adjusts properties, but doesn't handle where the elements are rendered to the DOM
+        animate(newPips, { opacity: [0, 1], y: [-20, 0] }, { delay: stagger(0.2) })
 
     })
 
