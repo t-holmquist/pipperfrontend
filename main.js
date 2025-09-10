@@ -2,13 +2,21 @@ import {getPips, addPip, deletePip} from './data.js';
 import { animate, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 // Create pips and display them in the DOM
-const RenderPips = async () => {
+const RenderPips = async (offset) => {
 
     // Get the data from the getPips fetching function from the PHP backend
-    const data = await getPips();
+    const data = await getPips(offset);
+
+    // Get show more button
+    const nextoffsetelement = document.getElementById('nextoffset')
+
+    // Get next_offset value from the server and set to the hidden div
+    let next_offset = data.pagination['next_offset']
+    nextoffsetelement.innerText = next_offset;
+
     
     // Loop over data and add a pip for each array index
-    data.forEach((pip) => {
+    data.data.forEach((pip) => {
 
         // Make a clone of the pip template
         const piptemplate = document.getElementById('piptemplate');
@@ -58,25 +66,44 @@ const RenderPips = async () => {
             });
 
         } else {
-            // Hides the delete buttons when the user is not "Felix"
+            // Hides the delete buttons w   hen the user is not "Felix"
             clon.querySelector('.delete').classList.add('hidden')
             
         }
 
         // Append the new clon to the container of the pip
-        document.getElementById('pipcontainer').appendChild(clon);
+        document.getElementById('pipList').appendChild(clon);
+
 
         // Stagger animation of pip cards. It renders with a 0 opacity and then the animation triggers after the elements are added to the DOM
         animate('.pipcontainer li', { opacity: [0, 1], y: [-20, 0] }, { delay: stagger(0.2) })
 
     })
+
+
 }
 
-// Run and create and render the pips to the DOM
-RenderPips();
+// Initial pageload renderes the first 5 pips (offset 0)
+RenderPips(0);
+
+// Get the hidden offset element and showmore button
+const nextoffsetelement = document.getElementById('nextoffset')
+const showMoreButton = document.getElementById('showmorebutton')
+
+// Create eventlistener on button to render pips with the new offset value each time. Renderpips then makes sure to update the offset value next
+// time the button is clicked.
+showMoreButton.addEventListener('click', () => {
+
+    // Read the offset value from the hidden div
+    let next_offset = nextoffsetelement.innerText
+    RenderPips(next_offset)
+})
+
 
 // Add a new pip. Handles user input from modal and the POST request. It also refetches the latest pip.
 addPip();
+
+
 
 
 // Create and show modal

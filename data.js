@@ -1,14 +1,15 @@
 import { animate } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
 // Fetch pips using a GET request
-export const getPips = async () => {
+export const getPips = async (offset) => {
 
     try {
         // Fetch the data from the PHP backend using the fetch API. Return a promise object.
-        const dataObject = await fetch('http://127.0.0.1:8000')
+        const dataObject = await fetch(`http://127.0.0.1:8000/?limit=5&offset=${offset}`)
 
         // Convert the promise to a JavaScript object in an array
         const jsonResponse = await dataObject.json();
+
 
         // Return the data
         return jsonResponse;
@@ -136,7 +137,7 @@ export const addPip = async () => {
 
                 
                 // Add the pip to the DOM (AT THE TOP with prepend)
-                document.getElementById('pipcontainer').prepend(clon);
+                document.getElementById('pipList').prepend(clon);
                 
             }
 
